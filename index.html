@@ -4,8 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Quick Quiz</title>
+    <link rel="stylesheet" href="./assets/css/reset.css" />
 </head>
 <body>
+    <header>
+        <h1>Flash Quiz</h1>
+        <h2>Try to answer all the questions!</h2>
+        <h2>Answer wrong, the quicker the timer expires!</h2>
+    </header>
+    <main>
+        <section id="qCard">
+            <ul id="choices"></ul>
+        </section>
+        
+        <button id="startBtn" data-state="visible">Start Quiz</button>
+    </main>
+    <aside>
+        <p id="timeLabel" data-state="hidden"><span id="timer"></span></p>
+    </aside>
+    <script src="./assets/js/questions.js"></script>
+    <script src="./assets/js/logic.js"></script>
     
 </body>
 </html>
