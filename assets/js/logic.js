@@ -1,41 +1,76 @@
-var timerEle = document.getElementById("timer");
-var pTimer = document.getElementById("timeLabel");
-var startBtn = document.getElementById("startBtn");
-var qCard = document.getElementById("qCard");
-var choices = document.getElementById("choices");
+var timerEl = document.getElementById("timer");
+var pTimerEl = document.getElementById("timeLabel");
+var startBtnEl = document.getElementById("startBtn");
+var qCardEl = document.getElementById("qCard");
+var choicesEl = document.getElementById("choices");
+var highScoreEl = document.getElementById("highscores");
+var hiScoreLink = document.querySelector("a");
 
-var qCardQuestion = document.createElement("p");
+var scoreFormEl = document.getElementById("scoreForm");
+var initialsEl = document.querySelector("#initials");
+
+var qCardQuestionEl = document.createElement("pre");
 
 var timer, timerCount;
 var listOfQs = [];
 var currentQ = {};
 
+var numCorrect = 0,
+    score = 0;
+var userScore = {};
+var highScores = [];
 
-choices.addEventListener("click", function(event) {
+
+choicesEl.addEventListener("click", function(event) {
     var element = event.target;
 
     if (element.matches("button") === true) {
         if (element.textContent === currentQ.correct) {
             console.log("correct!");
+            numCorrect++;
         } else {
             console.log("Wrong!");
-            timerCount -=10;
+            timerCount -=5;
         }
         
         renderQuestion();
     }
 });
 
+scoreFormEl.addEventListener("submit", function() {
+    userScore = {
+        userInitial: initialsEl.value.trim(),
+        userScore: score
+    };
+    if (highScores === null){ highScores = [];}
+
+    console.log(userScore);
+    console.log(highScores);
+    highScores.push(userScore);
+    highScores.sort((a, b) => b.userScore - a.userScore);
+
+    console.log(highScores);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    // localStorage.setItem("highScores", JSON.stringify(highScores));
+});
+
+function getScore() {
+    score = numCorrect/(questions.length) * 1000 + timerCount;
+    console.log("Score: " + score);
+    scoreFormEl.style.visibility = "visible";
+}
 function renderQuestion() {
     currentQ = getQuestion();
-    choices.replaceChildren("");
+    choicesEl.replaceChildren("");
     if (currentQ === null) {
-        qCardQuestion.textContent = "";
+        qCardQuestionEl.textContent = "";
+        console.log(timerCount);
+        getScore();
         timerCount = 0;
         return;
     }
-    qCardQuestion.textContent = currentQ.q;
-    qCard.appendChild(qCardQuestion);
+    qCardQuestionEl.textContent = currentQ.q;
+    qCardEl.appendChild(qCardQuestionEl);
     getChoices(Array.from(currentQ.choices));
 }
 
@@ -51,38 +86,37 @@ function getQuestion() {
 
 function getChoices(ansArray) {
     var randomOrder;
-    var li = document.createElement("li");
     do {
         randomOrder = Math.floor(Math.random() * ansArray.length);
         var li = document.createElement("li");
         var btn = document.createElement("button");
         btn.textContent = ansArray.splice(randomOrder, 1).pop();
         li.appendChild(btn);
-        choices.appendChild(li);
+        choicesEl.appendChild(li);
     } while (ansArray.length > 0)
-    qCard.appendChild(choices);
+    qCardEl.appendChild(choicesEl);
     return;
 }
 
 
 function startTimer() {
     timerCount = 90;
-    startBtn.style.visibility = "hidden";
-    pTimer.dataset.state = "visible";
-    timerEle.textContent = timerCount + " second(s) left!";
+    startBtnEl.style.visibility = "hidden";
+    pTimerEl.dataset.state = "visible";
+    timerEl.textContent = timerCount + " second(s) left!";
     
-    listOfQs = Array.from(questions)
+    listOfQs = Array.from(questions);
 
     //sets timer
     timer = setInterval(function() {
         if(timerCount > 0) {
             timerCount--;
-            timerEle.textContent = timerCount + " second(s) left!";
+            timerEl.textContent = timerCount + " second(s) left!";
         } else { //clears interval
             clearInterval(timer);
-            startBtn.style.visibility = "visible";
-            pTimer.dataset.state = "hidden";
-            timerEle.textContent = ""; 
+            startBtnEl.style.visibility = "visible";
+            pTimerEl.dataset.state = "hidden";
+            timerEl.textContent = ""; 
         }
     }, 1000);
 }
@@ -94,8 +128,32 @@ function startGame() {
 
 
 init();
-startBtn.addEventListener("click", startGame);
-function init() {
+startBtnEl.addEventListener("click", startGame);
+hiScoreLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (highScoreEl.style.visibility == "hidden") {
+        getHighScores();
+        highScoreEl.style.visibility = "visible";
+    } else {
+        highScoreEl.style.visibility = "hidden";
+    }
+    
+});
 
+function getHighScores() {
+    highScores = JSON.parse(localStorage.getItem("highScores"));
+    console.log(highScores);
+    highScoreEl.children[1].replaceChildren("");
+    
+    for (var line in highScores) {
+        var li = document.createElement("li");
+        li.textContent = highScores[line].userInitial + " -- " + highScores[line].userScore;
+        highScoreEl.children[1].appendChild(li);
+    }
+}
+function init() {
+    scoreFormEl.style.visibility = "hidden";
+    highScoreEl.style.visibility = "hidden";
+    getHighScores();
     console.log("starts here");
 }
