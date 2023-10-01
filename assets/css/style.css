@@ -1,0 +1,190 @@
+:root {
+    --myBlue: rgba(27, 65, 109,1);
+    --myLightBlue: rgba(6, 179, 209,1);
+    --myLightGreen: rgba(102, 255, 0, 1);
+
+
+}
+
+body {
+    background-color: var(--myBlue);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 62.5%;
+    color: white;
+    margin: 0.625rem 0;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 4.5rem;
+}
+
+h2 {
+    font-size: 3.5rem;
+}
+
+h3 {
+    font-size: 2.5rem;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: start;
+    width: 80vw;
+
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2rem; */
+    border-radius: 10%;
+    margin: 2rem 4rem;
+    padding: 6rem;
+    background-color: var(--myLightBlue);
+    font-size: 2rem;
+    max-width: 500px;
+    height: 25vh;
+    box-shadow: 0 12px 20px 0 black;
+}
+
+.card pre {
+    max-width: 350px;
+    text-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 250px;
+    height: 500px;
+    border: 4px black;
+    background-color: var(--myLightBlue);
+    border-radius: 2rem;
+    box-shadow: 0 12px 16px rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); 
+}
+
+aside p {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
+    color: yellow;
+    background-color: var(--myLightBlue);
+    width: fit-content;
+}
+
+aside a {
+    font-size: 1.5rem;
+    color: yellow;
+    text-decoration: none;
+}
+
+#startBtn {
+    /* position: relative; */
+    border-radius: 20%;
+    width: 20rem;
+    height: 12rem;
+    font-size: 3rem;
+    background-color: black;
+    color: yellow;
+    margin-bottom: -14rem;
+
+}
+#choice > li {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+}
+#choices > li > button{
+    font-size: 1.5rem;
+    background: var(--myLightBlue);
+    border: 2px outset var(--myLightGreen);
+    width: 350px;
+    text-align: left;
+    transition-duration: 0.6s;
+    margin-bottom: 4px;
+}
+
+#choices > li > button:hover {
+    box-shadow: 0 12px 16px rgba(0,0,0,0.24), 0 40px 50px 0 rgba(0,0,0,0.19);
+}
+
+#scoreForm {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    color: yellow;
+}
+
+#scoreForm input {
+    font-size: 2rem;
+    background-color: rgba(27, 65, 109, 0.50);
+    color: yellow;
+    width: 80%;
+    margin: 1rem;
+}
+
+#scoreForm button {
+    background-color: black;
+    color: yellow;
+    width:max-content;
+    font-size: 2rem;
+}
+#highscores {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#highscores > *{
+    color: yellow;
+    background-color: var(--myLightBlue);
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 1183px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    aside {
+        max-width: 400px;
+    }
+}
+@media screen and (max-width: 768px) {
+    header {
+        align-items:normal;
+        margin: 1rem 2rem;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: start;
+        margin: 1rem;
+    }
+
+    .card {
+        margin: 2rem 0;
+    }
+}
+
