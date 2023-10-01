@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Quick Quiz</title>
     <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
+
 <body>
     <header>
         <h1>Flash Quiz</h1>
-        <h2>Try to answer all the questions!</h2>
-        <h2>Answer wrong, the quicker the timer expires!</h2>
+        <h3>Try to answer all the questions!</h3>
+        <h3>Answer wrong, the quicker the timer expires!</h3>
     </header>
-    <main>
-        <section id="qCard">
+    <main class="container">
+        <section id="qCard" class="card">
             <ul id="choices"></ul>
+
+            <button id="startBtn" data-state="visible">Start Quiz</button>
         </section>
-        <button id="startBtn" data-state="visible">Start Quiz</button>
+        <aside>
+            <p id="timeLabel" data-state="hidden"><span id="timer"></span></p>
+            <form id="scoreForm" method="post">
+                <label>Add your Score!</label>
+                <input type="text" placeholder="initials" id="initials">
+                <button id="submitBtn">Submit</button>
+            </form>
+            <a href="#highscores">view highscores</a>
+            <section id="highscores">
+                <h3>High Score Rankings</h3>
+                <textarea readonly rows="10" id="scoresTxt"></textarea>
+            </section>
+        </aside>
     </main>
-    <aside>
-        <p id="timeLabel" data-state="hidden"><span id="timer"></span></p>
-        <form id="scoreForm" method="post">
-            <label>Add your Score!</label>
-            <input type="text" placeholder="initials" id="initials">
-            <button id="submitBtn">Submit</button>
-        </form>
-        <a href="#highscores">view highscores</a>
-        <section id="highscores">
-            <h2>High Score Rankings</h2>
-            <ol></ol>
-        </section>
-    </aside>
     <script src="./assets/js/questions.js"></script>
     <script src="./assets/js/logic.js"></script>
-    
+
 </body>
+
 </html>
