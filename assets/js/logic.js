@@ -36,6 +36,7 @@ function startGame() {
 
 function startTimer() { //start timer, reset 90s and 0 score
     timesUp = false;
+    numCorrect = 0;
     score = 0;
     timerCount = 90;
     startBtnEl.style.visibility = "hidden";
